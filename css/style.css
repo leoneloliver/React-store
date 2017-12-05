@@ -1,0 +1,70 @@
+/* Styles go here */
+body{
+  font-family: verdana;
+}
+.photo img{
+  max-height: 100px;
+}
+.product {
+  width: 25%;
+  float: left;
+  border: 10px solid #f7d332;
+  padding: 30px;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.tatal{
+  margin-top: 20px;
+  clear: both;
+  width: 100%;
+  padding-top: 28px;
+}
+.price{
+  font-size: 26px;
+  color: #4e960d;
+}
+.del-container{
+  height: 40px;
+}
+input[type="text"] {
+  height: 28px;
+  padding: 6px;
+  width: 200px;
+}
+button.add {
+  padding: 11px;
+  width: 210px;
+  background: #f7d303;
+  border: 0;
+  color: #fff;
+  font-size: 18px;
+}
+button.buy{
+  padding: 10px;
+  background: #09c301;
+  color: #fff;
+  font-size: 12px;
+  border: none;
+  margin: 5px;
+  width: 95px;
+}
+button.show{
+  padding: 10px;
+  background: blue;
+  color: #fff;
+  font-size: 12px;
+  border: none;
+  margin: 5px;
+  width: 95px;
+}
+button.delete{
+  padding: 10px;
+  background: red;
+  color: #fff;
+  font-size: 12px;
+  border: none;
+  margin: 5px;
+  width: 95px;
+}
