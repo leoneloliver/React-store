@@ -18,17 +18,19 @@ var Product = React.createClass({
   render: function() {
     return (
       <div className="product">
-        <h4>{this.props.name}</h4>
-        <div className="photo"><img src={this.props.img}/></div>
-        <p className="price">${this.props.price}</p>
-        <button onClick={this.buy} className="buy">buy</button>
-        <button onClick={this.show} className="show">show</button>
-        <div className="del-container">
-        { this.state.qty != 0 &&
-         <button onClick={this.debuy} className="delete">delete</button>
-        }
+        <div className="product-inner">
+          <h4>{this.props.name}</h4>
+          <div className="photo"><img src={this.props.img}/></div>
+          <p className="price">${this.props.price}</p>
+          <button onClick={this.buy} className="buy">buy</button>
+          <button onClick={this.show} className="show">show</button>
+          <div className="del-container">
+          { this.state.qty != 0 &&
+           <button onClick={this.debuy} className="delete">delete</button>
+          }
+          </div>
+          <p>Qty: {this.state.qty} item(s)</p>
         </div>
-        <p>Qty: {this.state.qty} item(s)</p>
       </div>
     );
   }
@@ -37,15 +39,14 @@ var Product = React.createClass({
 var Total = React.createClass({
   render: function() {
     return (
-      <h3>total cash: ${this.props.total}</h3>  
+      <h3>total cash: <span className="number">${this.props.total}</span></h3>  
     );
   }
 });
 
 var ProductForm = React.createClass({
-  
-  
 
+  
   submit: function(e) {
     e.preventDefault();
     var product = {
@@ -60,37 +61,74 @@ var ProductForm = React.createClass({
     this.refs.price.value = "";
     
   },
+  click: function(e) {
+    e.preventDefault();
+    var d = document.getElementById("form");
+    d.className += " show-this";
+
+    var b = document.getElementById("btn-show");
+    b.className += " hide-this";
+  },
   render: function() {
+    
+
     var randomArray = [
-      'https://images-na.ssl-images-amazon.com/images/I/51ALtxzk4zL._SY300_.jpg',
-      'https://www.bell.ca/Styles/wireless/all_languages/all_regions/catalog_images/iPhone_7/iPhone7_MatBlk_lrg1_en.png',
-      'https://i5.walmartimages.com/asr/6add8591-1d82-439d-9084-12711e414426_1.9023580bc42ab1c410fc32d9ea6a86f5.jpeg',
-      'http://www.virginmobile.ca/assets/phones/10-20461/10-20461_phoneFront.png',
-      'https://cdn.shopify.com/s/files/1/0808/0067/products/pixel_crystal_shell_title_03_large.jpg'
+      'img/51ALtxzk4zL._SY300_.jpg',
+      'img/iPhone7_MatBlk_lrg1_en.png',
+      'img/6add8591-1d82-439d-9084-12711e414426_1.9023580bc42ab1c410fc32d9ea6a86f5.jpeg',
+      'img/10-20461_phoneFront.png',
+      'img/pixel_crystal_shell_title_03_large.jpg'
     ];
     var randomElement = randomArray[Math.floor(Math.random() * 5)];
     
     return (
-      <form onSubmit={this.submit}>
-        <input type="text" placeholder="Product Name" ref="name" required /> - 
-        <input type="text" placeholder="Product Price" ref="price" required />
-        <br/><br/>
-        <input type="hidden" value={randomElement} ref="img" />
-        <button className="add">Creat Product</button>
-        <hr />
-      </form>
+
+      <div className="form-cont">
+        <button onClick={this.click} id="btn-show" className="show-form">Create new</button>
+        <form onSubmit={this.submit} id="form">
+          <input type="text" placeholder="Product Name" ref="name" required /> &nbsp;
+          <input type="text" placeholder="Product Price" ref="price" required />
+          &nbsp;&nbsp;<input type="hidden" value={randomElement} ref="img" />
+          <button className="add">Create a Product</button>
+          <hr />
+        </form>
+      </div>
     );
   }
 });
+
+var Header = React.createClass({
+  render: function(){
+    return (
+      <div className="header-bar">
+        <div className="header-inner">
+          <img src={this.props.logo} className="logo"/>
+        </div>
+      </div>
+    )
+  }
+})
+
+
+var Footer = React.createClass({
+  render: function(){
+    return (
+      <div className="header-bar">
+        <div className="credits">{this.props.credits}</div>
+      </div>
+    )
+  }
+})
 
 var ProductList = React.createClass({
   getInitialState: function() {
     return {
       total: 0,
       productList: [
-        {name: "Android", price: 120, img: "https://www.bell.ca/Styles/wireless/all_languages/all_regions/catalog_images/iPhone_7/iPhone7_MatBlk_lrg1_en.png"},
-        {name: "Apple", price: 300, img: "https://images-na.ssl-images-amazon.com/images/I/51ALtxzk4zL._SY300_.jpg" },
-        {name: "Nokia", price: 80, img: "https://www.bell.ca/Styles/wireless/all_languages/all_regions/catalog_images/iPhone_7/iPhone7_MatBlk_lrg1_en.png" },
+        {name: "Android", price: 120, img: "img/iPhone7_MatBlk_lrg1_en.png"},
+        {name: "Apple", price: 300, img: "img/51ALtxzk4zL._SY300_.jpg" },
+        {name: "Nokia", price: 80, img: "img/iPhone7_MatBlk_lrg1_en.png" },
+        {name: "Microsoft", price: 70, img: "img/10-20461_phoneFront.png" },
       ]
     };
   },
@@ -112,6 +150,7 @@ var ProductList = React.createClass({
   },
   
   render: function() {
+
     var component = this;
     var products = this.state.productList.map(function(product) {
       return (
@@ -122,14 +161,24 @@ var ProductList = React.createClass({
     return (
       <div>
         <div>
-          <ProductForm handleCreate={this.createProduct}/>
+          <Header logo="img/logo-mobile.svg" />
         </div>
         <div>
+          <ProductForm handleCreate={this.createProduct}/>
+        </div>
+        <div className="tatal">
+          <Total total={this.state.total}/>
+        </div>
+        <div className="prod-container">
           {products}
         </div>
         <div className="tatal">
           <Total total={this.state.total}/>
         </div>
+        <div>
+          <Footer credits="Developed by Leonel Oliveira"/>
+        </div>
+        
       </div>  
     );
   }
