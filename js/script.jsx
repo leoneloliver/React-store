@@ -46,7 +46,6 @@ var Total = React.createClass({
 
 var ProductForm = React.createClass({
 
-  
   submit: function(e) {
     e.preventDefault();
     var product = {
@@ -55,8 +54,7 @@ var ProductForm = React.createClass({
       img: this.refs.img.value
     }
     
-    this.props.handleCreate(product);
-    
+    this.props.handleCreate(product); 
     this.refs.name.value = "";
     this.refs.price.value = "";
     
@@ -65,13 +63,11 @@ var ProductForm = React.createClass({
     e.preventDefault();
     var d = document.getElementById("form");
     d.className += " show-this";
-
     var b = document.getElementById("btn-show");
     b.className += " hide-this";
   },
   render: function() {
     
-
     var randomArray = [
       'img/51ALtxzk4zL._SY300_.jpg',
       'img/iPhone7_MatBlk_lrg1_en.png',
@@ -108,7 +104,6 @@ var Header = React.createClass({
     )
   }
 })
-
 
 var Footer = React.createClass({
   render: function(){
@@ -183,6 +178,5 @@ var ProductList = React.createClass({
     );
   }
 });
-
 
 React.render(<ProductList />, document.querySelector('product-item'));
